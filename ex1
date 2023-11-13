@@ -15,7 +15,7 @@ if (isset($_GET['temperature'])) {
 if (is_null($temperature) || is_null($unit)) {
     ?>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
-        Temperature: <input type="text" name="temperature" /><br />
+        Temperature: <input type="text" name="temperature" value="<?php echo $temperature; ?>" /><br />
         <input type="radio" name="unit" value="celsius" checked/> Celsius
         <input type="radio" name="unit" value="fahrenheit"/> Fahrenheit<br />
         <input type="submit" value="Convert" />
@@ -29,6 +29,13 @@ if (is_null($temperature) || is_null($unit)) {
         $celsius = ($temperature - 32) * 5 / 9;
         printf("%.2fF is %.2fC", $temperature, $celsius);
     }
+    ?>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+        <input type="hidden" name="temperature" value="<?php echo $temperature; ?>" />
+        <input type="hidden" name="unit" value="<?php echo ($unit === 'celsius') ? 'fahrenheit' : 'celsius'; ?>" />
+        <input type="submit" value="Convert to <?php echo ($unit === 'celsius') ? 'Fahrenheit' : 'Celsius'; ?>" />
+    </form>
+    <?php
 }
 ?>
 </body>
