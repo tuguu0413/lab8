@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Temperature Conversion</title>
+</head>
+<body>
+<?php
+if (isset($_GET['temperature'])) {
+    $temperature = $_GET['temperature'];
+    $unit = $_GET['unit'];
+} else {
+    $temperature = null;
+    $unit = null;
+}
+
+if (is_null($temperature) || is_null($unit)) {
+    ?>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+        Temperature: <input type="text" name="temperature" /><br />
+        <input type="radio" name="unit" value="celsius" checked/> Celsius
+        <input type="radio" name="unit" value="fahrenheit"/> Fahrenheit<br />
+        <input type="submit" value="Convert" />
+    </form>
+    <?php
+} else {
+    if ($unit === 'celsius') {
+        $fahrenheit = $temperature * 9 / 5 + 32;
+        printf("%.2fC is %.2fF", $temperature, $fahrenheit);
+    } else {
+        $celsius = ($temperature - 32) * 5 / 9;
+        printf("%.2fF is %.2fC", $temperature, $celsius);
+    }
+}
+?>
+</body>
+</html>
