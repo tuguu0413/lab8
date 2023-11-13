@@ -5,14 +5,12 @@
         function moveSelectedOptions() {
             var firstSelect = document.getElementById('firstSelect');
             var secondSelect = document.getElementById('secondSelect');
-
-            // Move selected options from the first select to the second select
             for (var i = 0; i < firstSelect.options.length; i++) {
                 var option = firstSelect.options[i];
                 if (option.selected) {
                     secondSelect.add(new Option(option.text, option.value));
                     firstSelect.remove(i);
-                    i--; // Adjust the index since the options array length is reduced
+                    i--;
                 }
             }
         }
