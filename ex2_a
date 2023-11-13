@@ -1,1 +1,44 @@
+<html>
+<head>
+    <title>Personality</title>
+    <script>
+        function moveSelectedOptions() {
+            var firstSelect = document.getElementById('firstSelect');
+            var secondSelect = document.getElementById('secondSelect');
+
+            // Move selected options from the first select to the second select
+            for (var i = 0; i < firstSelect.options.length; i++) {
+                var option = firstSelect.options[i];
+                if (option.selected) {
+                    secondSelect.add(new Option(option.text, option.value));
+                    firstSelect.remove(i);
+                    i--; // Adjust the index since the options array length is reduced
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+    Select your personality attributes:<br />
+    <select id="firstSelect" name="attributes[]" multiple>
+        <option value="perky">Perky</option>
+        <option value="morose">Morose</option>
+        <option value="thinking">Thinking</option>
+        <option value="feeling">Feeling</option>
+        <option value="thrifty">Spend-thrift</option>
+        <option value="shopper">Shopper</option>
+    </select><br />
+    <input type="button" onclick="moveSelectedOptions()" value="Move to the next select" /><br />
+    <select id="secondSelect" name="selectedAttributes[]" multiple></select><br />
+    <input type="submit" name="s" value="Record my personality!" />
+</form>
+<?php
+if (isset($_GET['s'])) {
+    $description = join(' ', $_GET['attributes']);
+    echo "You have a {$description} personality.";
+}
+?>
+</body>
+</html>
 
